@@ -25,7 +25,7 @@ jobs:
       - run:          
           name: Executing the collection Self Trend Calculator
           command: |
-            npx newman run https://api.getpostman.com/collections/<< parameters.collection >>?apikey=${AUTOMATION_API_KEY} -e https://api.getpostman.com/environments/<< parameters.environment >>?apikey=${AUTOMATION_API_KEY} -d ./TestData.csv --reporters "cli,htmlextra"
+            npx newman run https://api.getpostman.com/collections/<< parameters.collection >>?apikey=${AUTOMATION_API_KEY} -e https://api.getpostman.com/environments/<< parameters.environment >>?apikey=${AUTOMATION_API_KEY} -d << parameters.iteration-data >> --reporters "cli,htmlextra"
             
       - store_artifacts: {path: ~/project}
       #- store_test_results: {path: /home/circleci/testing-tests/newman}
@@ -38,6 +38,7 @@ workflows:
           name: Postman Collection Execution
           collection: 27218141-113ca024-3c05-4a2f-96b6-7aa6021a6090
           environment: 27218141-967e4535-1bac-4f7b-af29-f68431b4f923
+          iteration-data: TestData.csv
           temp: "Automated Run: $( date '+%F_%H:%M:%S' )"
           context:
             - postman
