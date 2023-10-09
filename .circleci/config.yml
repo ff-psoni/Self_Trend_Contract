@@ -27,8 +27,7 @@ jobs:
       - run:          
           name: Executing the collection Self Trend 
           command: |
-            ls -la 
-            
+            npx newman run https://api.getpostman.com/collections/<< parameters.collection >>?apikey=${AUTOMATION_API_KEY} -e https://api.getpostman.com/environments/<< parameters.environment >>?apikey=${AUTOMATION_API_KEY} --reporters "cli,htmlextra"
             
       - store_artifacts: {path: ~/project}
       #- store_test_results: {path: /home/circleci/testing-tests/newman}
