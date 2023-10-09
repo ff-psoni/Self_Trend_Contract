@@ -40,7 +40,7 @@ workflows:
           name: Postman Collection Execution
           collection: 27218141-113ca024-3c05-4a2f-96b6-7aa6021a6090
           environment: 27218141-967e4535-1bac-4f7b-af29-f68431b4f923
-          iteration-data: ./TestData.csv
+          iteration-data: https://github.com/ff-psoni/Self_Trend_Contract/blob/main/.circleci/TestData.csv
           temp: "Automated Run: $( date '+%F_%H:%M:%S' )"
           context:
             - postman
