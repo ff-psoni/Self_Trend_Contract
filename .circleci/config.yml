@@ -1,10 +1,5 @@
 version: 2.1
 
-parameters:
-  testrailFlag:
-    type: boolean
-    default: false
-
 orbs:
   newman: postman/newman@1.0.0
 
