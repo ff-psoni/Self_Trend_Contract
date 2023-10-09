@@ -23,7 +23,7 @@ jobs:
             npm install -g newman-reporter-htmlextra
                     
       - run:          
-          name: Executing the collection Self Trend
+          name: Executing the collection Self Trend Calculator
           command: |
             npx newman run https://api.getpostman.com/collections/<< parameters.collection >>?apikey=${POSTMAN_API_KEY} -e https://api.getpostman.com/environments/<< parameters.environment >>?apikey=${POSTMAN_API_KEY} --reporters "cli,htmlextra"
             
