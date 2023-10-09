@@ -27,8 +27,7 @@ jobs:
       - run:          
           name: Executing the collection Self Trend 
           command: |
-            ls -la |
-            cd . 
+            ls -la 
             
             
       - store_artifacts: {path: ~/project}
