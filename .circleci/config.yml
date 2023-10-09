@@ -1,0 +1,50 @@
+version: 2.1
+
+parameters:
+  testrailFlag:
+    type: boolean
+    default: false
+
+orbs:
+  newman: postman/newman@1.0.0
+
+jobs:          
+  postman-test:
+    description: Run Postman collection tests
+    parameters:
+      collection:
+        type: string
+      environment:
+        type: string
+      temp:
+        type: string
+    executor: newman/postman-newman-docker
+    
+    steps:
+            
+      - run:
+          name: Installing htmlextra reporting plugin
+          command: |
+            npm install -g newman-reporter-htmlextra
+                    
+      - run:
+          steps:
+              - run:
+                  name: Executing the collection
+                  command: |
+                    npx newman run https://api.getpostman.com/collections/<< parameters.collection >>?apikey=${POSTMAN_API_KEY} -e https://api.getpostman.com/environments/<< parameters.environment >>?apikey=${POSTMAN_API_KEY} --reporters "cli,htmlextra"
+            
+      - store_artifacts: {path: ~/project}
+      #- store_test_results: {path: /home/circleci/testing-tests/newman}
+      - store_test_results: {path: /root/project/newman}
+
+workflows:
+  tendril-api-automation:
+    jobs:      
+      - postman-test:
+          name: Postman Collection Execution
+          collection: 27218141-113ca024-3c05-4a2f-96b6-7aa6021a6090
+          environment: 27218141-967e4535-1bac-4f7b-af29-f68431b4f923
+          temp: "Automated Run: $( date '+%F_%H:%M:%S' )"
+          context:
+            - postman
