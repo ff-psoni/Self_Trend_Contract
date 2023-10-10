@@ -5,33 +5,34 @@ orbs:
 
 jobs:          
   postman-test:
-    description: Run Postman collection tests
-    parameters:
-      collection:
-        type: string
-      environment:
-        type: string
-      temp:
-        type: string
-      iteration-data:
-        type: string
-    executor: newman/postman-newman-docker
-    
-    steps:
-            
-      - run:
-          name: Installing htmlextra reporting plugin
-          command: |
-            npm install -g newman-reporter-htmlextra
-                    
-      - run:          
-          name: Executing the collection Self Trend 
-          command: |
-            npx newman run https://api.getpostman.com/collections/<< parameters.collection >>?apikey=${AUTOMATION_API_KEY} -e https://api.getpostman.com/environments/<< parameters.environment >>?apikey=${AUTOMATION_API_KEY} -d << parameters.iteration-data >> --reporters "cli,htmlextra"
-            
-      - store_artifacts: {path: ~/project}
-      #- store_test_results: {path: /home/circleci/testing-tests/newman}
-      - store_test_results: {path: /root/project/newman}
+        description: Run Postman collection tests
+        parameters:
+          collection:
+            type: string
+          environment:
+            type: string
+          temp:
+            type: string
+          iteration-data:
+            type: string
+        executor: newman/postman-newman-docker
+        
+        steps:
+          - checkout 
+          - run:
+              name: Installing htmlextra reporting plugin
+              command: |
+                npm install -g newman-reporter-htmlextra
+                ls -la
+                        
+          - run:          
+              name: Executing the collection Self Trend 
+              command: |
+                npx newman run https://api.getpostman.com/collections/<< parameters.collection >>?apikey=${AUTOMATION_API_KEY} -e https://api.getpostman.com/environments/<< parameters.environment >>?apikey=${AUTOMATION_API_KEY} -d << parameters.iteration-data >> --reporters "cli,htmlextra"
+                
+          - store_artifacts: {path: ~/project}
+          #- store_test_results: {path: /home/circleci/testing-tests/newman}
+          - store_test_results: {path: /root/project/newman}
 
 workflows:
   tendril-api-automation:
