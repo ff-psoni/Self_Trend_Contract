@@ -26,19 +26,18 @@ jobs:
                 ls -la
                         
           - run:          
-              name: Executing the collection Self Trend 
+              name: Executing the collection tests for Self Trend Analyzer
               command: |
                 npx newman run https://api.getpostman.com/collections/<< parameters.collection >>?apikey=${AUTOMATION_API_KEY} -e https://api.getpostman.com/environments/<< parameters.environment >>?apikey=${AUTOMATION_API_KEY} -d << parameters.iteration-data >> --reporters "cli,htmlextra"
                 
           - store_artifacts: {path: ~/project}
-          #- store_test_results: {path: /home/circleci/testing-tests/newman}
           - store_test_results: {path: /root/project/newman}
 
 workflows:
-  tendril-api-automation:
+  billikens-api-automation:
     jobs:      
       - postman-test:
-          name: Postman Collection Execution
+          name: Self Trend Collection Execution
           collection: 27218141-113ca024-3c05-4a2f-96b6-7aa6021a6090
           environment: 27218141-967e4535-1bac-4f7b-af29-f68431b4f923
           iteration-data: ./data.json
