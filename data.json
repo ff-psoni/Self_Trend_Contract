@@ -1,0 +1,27 @@
+[
+	{
+		"service_location_id":"serviceLocation1",
+		"account":"account1",
+		"fuel_type":"electric"
+	},
+	{
+		"service_location_id":"serviceLocation2",
+		"account":"account1",
+		"fuel_type":"electric"
+	},
+	{
+		"service_location_id":"serviceLocation3",
+		"account":"account1",
+		"fuel_type":"electric"
+	},
+	{
+		"service_location_id":"serviceLocation4",
+		"account":"account1",
+		"fuel_type":"electric"
+	},
+	{
+		"service_location_id":"serviceLocation5",
+		"account":"account1",
+		"fuel_type":"electric"
+	}
+]
