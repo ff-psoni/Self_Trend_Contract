@@ -38,8 +38,8 @@ workflows:
     jobs:      
       - postman-test:
           name: Self Trend Collection Execution
-          collection: 27218141-113ca024-3c05-4a2f-96b6-7aa6021a6090
-          environment: 27218141-967e4535-1bac-4f7b-af29-f68431b4f923
+          collection: 17618528-94c69ad1-87e1-4169-a9f7-0a7b9c4a7f05
+          environment: 17618528-523c7df5-1515-4fba-8801-714199f461c0
           iteration-data: ./data.json
           temp: "Automated Run: $( date '+%F_%H:%M:%S' )"
           context:
