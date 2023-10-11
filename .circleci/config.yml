@@ -28,7 +28,7 @@ jobs:
           - run:          
               name: Executing the collection tests for Self Trend Analyzer
               command: |
-                npx newman run https://api.getpostman.com/collections/<< parameters.collection >>?apikey=${AUTOMATION_API_KEY} -e https://api.getpostman.com/environments/<< parameters.environment >>?apikey=${AUTOMATION_API_KEY} -d << parameters.iteration-data >> --reporters "cli,htmlextra"
+                npx newman run https://api.getpostman.com/collections/<< parameters.collection >>?apikey=${AUTOMATION_API_KEY} -e https://api.getpostman.com/environments/<< parameters.environment >>?apikey=${AUTOMATION_API_KEY} -d << parameters.iteration-data >> --reporters "cli,htmlextra" --folder 17618528-94c69ad1-87e1-4169-a9f7-0a7b9c4a7f05
                 
           - store_artifacts: {path: ~/project}
           - store_test_results: {path: /root/project/newman}
@@ -38,7 +38,7 @@ workflows:
     jobs:      
       - postman-test:
           name: Self Trend Collection Execution
-          collection: 17618528-94c69ad1-87e1-4169-a9f7-0a7b9c4a7f05
+          collection: 17618528-ef671e9d-9c1b-47a4-9d17-4664a6686572
           environment: 17618528-523c7df5-1515-4fba-8801-714199f461c0
           iteration-data: ./data.json
           temp: "Automated Run: $( date '+%F_%H:%M:%S' )"
