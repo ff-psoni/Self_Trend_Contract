@@ -23,7 +23,6 @@ jobs:
               name: Installing htmlextra reporting plugin
               command: |
                 npm install -g newman-reporter-htmlextra
-                ls -la
                         
           - run:          
               name: Executing the collection tests for Self Trend Analyzer
@@ -37,7 +36,7 @@ workflows:
   billikens-api-automation:
     jobs:      
       - postman-test:
-          name: Self Comparison Trend Execution
+          name: Self Comparison Trend
           collection: 17618528-ef671e9d-9c1b-47a4-9d17-4664a6686572
           environment: 17618528-523c7df5-1515-4fba-8801-714199f461c0
           iteration-data: ./data.json
