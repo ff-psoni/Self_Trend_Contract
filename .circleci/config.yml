@@ -4,8 +4,33 @@ orbs:
   newman: postman/newman@1.0.0
 
 jobs:          
-  postman-test:
-        description: Run Postman collection tests
+  postman-test-self_trend:
+        description: Run Postman collection tests for Self Comparison Trend
+        parameters:
+          collection:
+            type: string
+          environment:
+            type: string
+          temp:
+            type: string
+          iteration-data:
+            type: string
+        executor: newman/postman-newman-docker
+        
+        steps:
+          - checkout 
+          - run:
+              name: Installing htmlextra reporting plugin
+              command: |
+                npm install -g newman-reporter-htmlextra           
+          - run:          
+              name: Executing the collection tests for Self Comparison Trend
+              command: |
+                npx newman run https://api.getpostman.com/collections/<< parameters.collection >>?apikey=${AUTOMATION_API_KEY} -e https://api.getpostman.com/environments/<< parameters.environment >>?apikey=${AUTOMATION_API_KEY} -d << parameters.iteration-data >> --reporters "cli,htmlextra" --folder "Self Comparison Trend"
+          - store_artifacts: {path: ~/project}
+          - store_test_results: {path: /root/project/newman}
+    postman-test1-peer_trend:
+        description: Run Postman collection tests for Peer Comparison Trend
         parameters:
           collection:
             type: string
@@ -24,23 +49,25 @@ jobs:
               name: Installing htmlextra reporting plugin
               command: |
                 npm install -g newman-reporter-htmlextra
-                        
-          - run:          
-              name: Executing the collection tests for Self Comparison Trend
-              command: |
-                npx newman run https://api.getpostman.com/collections/<< parameters.collection >>?apikey=${AUTOMATION_API_KEY} -e https://api.getpostman.com/environments/<< parameters.environment >>?apikey=${AUTOMATION_API_KEY} -d << parameters.iteration-data >> --reporters "cli,htmlextra" --folder "Self Comparison Trend"
           - run:          
               name: Executing the collection tests for Peer Comparison Trend
               command: |
                 npx newman run https://api.getpostman.com/collections/<< parameters.collection >>?apikey=${AUTOMATION_API_KEY} -e https://api.getpostman.com/environments/<< parameters.environment >>?apikey=${AUTOMATION_API_KEY} -d << parameters.iteration-data >> --reporters "cli,htmlextra" --folder "Peer Comparison Trend"      
           - store_artifacts: {path: ~/project}
           - store_test_results: {path: /root/project/newman}
-
 workflows:
   billikens-api-automation:
     jobs:      
-      - postman-test:
+      - postman-test-self_trend:
           name: Self Comparison Trend
+          collection: 17618528-ef671e9d-9c1b-47a4-9d17-4664a6686572
+          environment: 17618528-523c7df5-1515-4fba-8801-714199f461c0
+          iteration-data: ./data.json
+          temp: "Automated Run: $( date '+%F_%H:%M:%S' )"
+          context:
+            - postman
+      - postman-test1-peer_trend:
+          name: Peer Comparison Trend
           collection: 17618528-ef671e9d-9c1b-47a4-9d17-4664a6686572
           environment: 17618528-523c7df5-1515-4fba-8801-714199f461c0
           iteration-data: ./data.json
