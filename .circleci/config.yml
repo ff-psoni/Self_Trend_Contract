@@ -29,7 +29,7 @@ jobs:
                 npx newman run https://api.getpostman.com/collections/<< parameters.collection >>?apikey=${AUTOMATION_API_KEY} -e https://api.getpostman.com/environments/<< parameters.environment >>?apikey=${AUTOMATION_API_KEY} -d << parameters.iteration-data >> --reporters "cli,htmlextra" --folder "Self Comparison Trend"
           - store_artifacts: {path: ~/project}
           - store_test_results: {path: /root/project/newman}
-    postman-test1-peer_trend:
+  postman-test-peer_trend:
         description: Run Postman collection tests for Peer Comparison Trend
         parameters:
           collection:
@@ -66,7 +66,7 @@ workflows:
           temp: "Automated Run: $( date '+%F_%H:%M:%S' )"
           context:
             - postman
-      - postman-test1-peer_trend:
+      - postman-test-peer_trend:
           name: Peer Comparison Trend
           collection: 17618528-ef671e9d-9c1b-47a4-9d17-4664a6686572
           environment: 17618528-523c7df5-1515-4fba-8801-714199f461c0
